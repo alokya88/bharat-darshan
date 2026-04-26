@@ -15,14 +15,14 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Tanishkaa Rohilla",
     role: "Backend Developer",
-    image: "https://ui-avatars.com/api/?name=Tanishkaa+Rohilla&background=FF7722&color=fff&size=256&bold=true&font-size=0.4",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tanishkaa&backgroundColor=FF7722&backgroundType=gradientLinear&top=long01&hairColor=black&eyes=happy&mouth=smile&skinColor=f8d25c&accessories=prescription02&accessoriesColor=264653",
     contribution: "Architected and built the entire backend infrastructure of Bharat Darshan, including Firebase Firestore database design, user authentication, and real-time data services. Developed the review system, wishlist and visited places features, and ensured secure data flow throughout the application.",
     skills: ["Firebase", "Firestore", "Authentication", "Database Design", "API Integration"]
   },
   {
     name: "Manpreet",
     role: "Frontend Developer",
-    image: "https://ui-avatars.com/api/?name=Manpreet&background=138808&color=fff&size=256&bold=true&font-size=0.4",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Manpreet&backgroundColor=138808&backgroundType=gradientLinear&top=long02&hairColor=black&eyes=wink&mouth=twinkle&skinColor=ae5d29&clothing=blazerAndShirt&clothingColor=green",
     contribution: "Designed and developed the complete user interface of Bharat Darshan using React and Tailwind CSS. Crafted responsive layouts, smooth animations, and an intuitive user experience across all pages — from the hero section to the travel dashboard — ensuring the platform is both visually appealing and easy to use.",
     skills: ["React", "Tailwind CSS", "TypeScript", "UI/UX Design", "Responsive Design"]
   }
@@ -76,7 +76,7 @@ const About = () => {
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-24 h-24 rounded-full border-4 border-background shadow-lg object-cover"
+                      className="w-28 h-28 rounded-full border-4 border-background shadow-lg object-cover bg-white"
                     />
                     <span className={`absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-background ${i === 0 ? 'bg-primary' : 'bg-secondary'}`} />
                   </div>
