@@ -1,31 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface TeamMember {
   name: string;
   role: string;
   image: string;
   contribution: string;
+  skills: string[];
 }
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Dishant",
+    name: "Tanishkaa Rohilla",
     role: "Backend Developer",
-    image: "/dishant.jpg",
-    contribution: "Led the team as coordinator while focusing on Backend development. Implemented core functionalities and managed database systems."
+    image: "https://ui-avatars.com/api/?name=Tanishkaa+Rohilla&background=FF7722&color=fff&size=256&bold=true&font-size=0.4",
+    contribution: "Architected and built the entire backend infrastructure of Bharat Darshan, including Firebase Firestore database design, user authentication, and real-time data services. Developed the review system, wishlist and visited places features, and ensured secure data flow throughout the application.",
+    skills: ["Firebase", "Firestore", "Authentication", "Database Design", "API Integration"]
   },
   {
-    name: "Gungun",
+    name: "Manpreet",
     role: "Frontend Developer",
-    image: "/gungun.jpg",
-    contribution: "Contributed to Frontend development as a volunteer. Helped implement website features and design website layout."
-  },
-  {
-    name: "Angad",
-    role: "Data Collector",
-    image: "/angad.jpg",
-    contribution: "Served as a volunteer focusing on data collection. Gathered and organized cultural heritage information for the platform."
+    image: "https://ui-avatars.com/api/?name=Manpreet&background=138808&color=fff&size=256&bold=true&font-size=0.4",
+    contribution: "Designed and developed the complete user interface of Bharat Darshan using React and Tailwind CSS. Crafted responsive layouts, smooth animations, and an intuitive user experience across all pages — from the hero section to the travel dashboard — ensuring the platform is both visually appealing and easy to use.",
+    skills: ["React", "Tailwind CSS", "TypeScript", "UI/UX Design", "Responsive Design"]
   }
 ];
 
@@ -39,47 +38,93 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-primary/5 py-12">
       <div className="container mx-auto px-4 space-y-16">
-        <div className="text-center space-y-4 px-4 sm:px-6">
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center space-y-4 px-4 sm:px-6"
+        >
           <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
             Meet Our Team
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-            The Creators Behind This Project
+            The Creators Behind Bharat Darshan
           </h1>
           <p className="text-muted-foreground max-w-3xl mx-auto text-sm sm:text-base">
-            We are a passionate team of developers and designers dedicated to showcasing India's rich cultural heritage through modern technology.
+            We are a passionate team of developers dedicated to showcasing India's rich cultural heritage through modern technology, making it accessible and engaging for everyone.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-          {TEAM_MEMBERS.map((member) => (
-            <Card key={member.name} className="overflow-hidden group hover:shadow-xl transition-all duration-300 bg-card/80 backdrop-blur">
-              <div className="relative aspect-square sm:aspect-[4/3] overflow-hidden bg-primary/5">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                <img
-                  src={member.image}
-                  alt={`${member.name}'s profile`}
-                  loading="lazy"
-                  className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <CardHeader className="space-y-2 sm:space-y-1.5">
-                <CardTitle className="text-lg sm:text-xl">{member.name}</CardTitle>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{member.contribution}</p>
-              </CardContent>
-            </Card>
+        {/* Team Cards */}
+        <div className="grid gap-8 sm:grid-cols-2 max-w-4xl mx-auto">
+          {TEAM_MEMBERS.map((member, i) => (
+            <motion.div
+              key={member.name}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+            >
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-300 bg-card/80 backdrop-blur h-full flex flex-col">
+                {/* Top color banner */}
+                <div className={`h-24 ${i === 0 ? 'bg-gradient-to-r from-primary/80 to-primary/40' : 'bg-gradient-to-r from-secondary/80 to-secondary/40'}`} />
+
+                {/* Avatar */}
+                <div className="flex justify-center -mt-12 px-6">
+                  <div className="relative">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-24 h-24 rounded-full border-4 border-background shadow-lg object-cover"
+                    />
+                    <span className={`absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-background ${i === 0 ? 'bg-primary' : 'bg-secondary'}`} />
+                  </div>
+                </div>
+
+                <CardHeader className="text-center pt-3 pb-2">
+                  <CardTitle className="text-xl">{member.name}</CardTitle>
+                  <Badge
+                    className={`mx-auto w-fit ${i === 0 ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}
+                    variant="outline"
+                  >
+                    {member.role}
+                  </Badge>
+                </CardHeader>
+
+                <CardContent className="flex-1 flex flex-col gap-4 pt-2">
+                  <p className="text-muted-foreground text-sm leading-relaxed text-center">
+                    {member.contribution}
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center mt-auto pt-2 border-t">
+                    {member.skills.map(skill => (
+                      <Badge key={skill} variant="secondary" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
-        <section className="text-center space-y-4">
-          <h2 className="text-2xl font-bold">Our Mission</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Our goal is to create an engaging digital platform that preserves and promotes India's cultural heritage. We combine traditional elements with modern technology to make our rich history accessible to everyone.
+        {/* Mission Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center space-y-4 max-w-3xl mx-auto"
+        >
+          <span className="inline-block px-4 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+            Our Mission
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold">Why We Built This</h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            India is home to one of the world's oldest and richest civilizations. Our goal with Bharat Darshan is to create an engaging digital platform that preserves and promotes this incredible heritage — making it easy for anyone to explore states, discover tourist places, learn about festivals and art forms, and plan their cultural journey across India.
           </p>
-        </section>
+        </motion.section>
+
       </div>
     </div>
   );
