@@ -15,14 +15,14 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Tanishkaa Rohilla",
     role: "Backend Developer",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tanishkaa&backgroundColor=FF7722&backgroundType=gradientLinear&top=long01&hairColor=black&eyes=happy&mouth=smile&skinColor=f8d25c&accessories=prescription02&accessoriesColor=264653",
+    image: "https://api.dicebear.com/7.x/adventurer/png?seed=Tanishkaa&backgroundColor=FFB347&hair=long19&eyes=variant12&mouth=variant26&skinColor=f2d3b1",
     contribution: "Architected and built the entire backend infrastructure of Bharat Darshan, including Firebase Firestore database design, user authentication, and real-time data services. Developed the review system, wishlist and visited places features, and ensured secure data flow throughout the application.",
     skills: ["Firebase", "Firestore", "Authentication", "Database Design", "API Integration"]
   },
   {
     name: "Manpreet",
     role: "Frontend Developer",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Manpreet&backgroundColor=138808&backgroundType=gradientLinear&top=long02&hairColor=black&eyes=wink&mouth=twinkle&skinColor=ae5d29&clothing=blazerAndShirt&clothingColor=green",
+    image: "https://api.dicebear.com/7.x/adventurer/png?seed=Manpreet&backgroundColor=6BCB77&hair=long17&eyes=variant16&mouth=variant23&skinColor=c9a96e",
     contribution: "Designed and developed the complete user interface of Bharat Darshan using React and Tailwind CSS. Crafted responsive layouts, smooth animations, and an intuitive user experience across all pages — from the hero section to the travel dashboard — ensuring the platform is both visually appealing and easy to use.",
     skills: ["React", "Tailwind CSS", "TypeScript", "UI/UX Design", "Responsive Design"]
   }
@@ -66,7 +66,7 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15, duration: 0.5 }}
             >
-              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-300 bg-card/80 backdrop-blur h-full flex flex-col">
+              <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-300 bg-white dark:bg-gray-800 h-full flex flex-col">
                 {/* Top color banner */}
                 <div className={`h-24 ${i === 0 ? 'bg-gradient-to-r from-primary/80 to-primary/40' : 'bg-gradient-to-r from-secondary/80 to-secondary/40'}`} />
 
@@ -83,7 +83,7 @@ const About = () => {
                 </div>
 
                 <CardHeader className="text-center pt-3 pb-2">
-                  <CardTitle className="text-xl">{member.name}</CardTitle>
+                  <CardTitle className="text-xl text-gray-900 dark:text-white">{member.name}</CardTitle>
                   <Badge
                     className={`mx-auto w-fit ${i === 0 ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}
                     variant="outline"
@@ -93,10 +93,10 @@ const About = () => {
                 </CardHeader>
 
                 <CardContent className="flex-1 flex flex-col gap-4 pt-2">
-                  <p className="text-muted-foreground text-sm leading-relaxed text-center">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed text-center">
                     {member.contribution}
                   </p>
-                  <div className="flex flex-wrap gap-2 justify-center mt-auto pt-2 border-t">
+                  <div className="flex flex-wrap gap-2 justify-center mt-auto pt-2 border-t border-gray-200 dark:border-gray-600">
                     {member.skills.map(skill => (
                       <Badge key={skill} variant="secondary" className="text-xs">
                         {skill}
