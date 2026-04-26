@@ -6,6 +6,43 @@ import FeaturedDestination from "@/components/FeaturedDestination";
 import Hero from "@/components/Hero";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Calendar, Palette, Sparkles, MapPin, Plane, Globe, Camera } from "lucide-react";
+import { motion } from "framer-motion";
+
+const stats = [
+  { label: "States Covered", value: 28, suffix: "+", icon: <MapPin className="w-7 h-7" /> },
+  { label: "Tourist Places", value: 100, suffix: "+", icon: <Camera className="w-7 h-7" /> },
+  { label: "Festivals", value: 30, suffix: "+", icon: <Calendar className="w-7 h-7" /> },
+  { label: "Art Forms", value: 8, suffix: "", icon: <Palette className="w-7 h-7" /> },
+];
+
+function CountUp({ target, suffix }: { target: number; suffix: string }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started) setStarted(true);
+    }, { threshold: 0.5 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+    let start = 0;
+    const duration = 1500;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(start);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [started, target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 const Index = () => {
   const navigate = useNavigate();
@@ -18,6 +55,32 @@ const Index = () => {
       <Hero />
       
       <main className="container mx-auto px-4 py-16 space-y-24">
+
+        {/* Animated Stats Section */}
+        <section>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 border-primary/20 group hover:-translate-y-1">
+                  <div className="flex justify-center mb-3 text-primary group-hover:scale-110 transition-transform duration-300">
+                    {stat.icon}
+                  </div>
+                  <div className="text-4xl font-bold text-primary mb-1">
+                    <CountUp target={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* Featured Destinations Section */}
         <section ref={featuredSectionRef} id="featured-destinations" className="space-y-12 relative">
           {/* Decorative elements */}

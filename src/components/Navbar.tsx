@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -16,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, X, MapPin, Book, Landmark, Palette, User, LogOut, CheckCircle, Heart, LogIn, Flag, BookOpen, Calendar } from "lucide-react";
+import { Menu, X, MapPin, Book, Landmark, Palette, User, LogOut, CheckCircle, Heart, LogIn, Flag, BookOpen, Calendar, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -37,6 +38,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser, logout, isAuthenticated } = useAuth();
+  const { theme, setTheme } = useTheme();
   const isHomePage = location.pathname === '/';
 
   // Track scroll position
@@ -223,6 +225,15 @@ const Navbar = () => {
 
         {/* Right section with auth buttons */}
         <div className="hidden md:flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="h-9 w-9"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
