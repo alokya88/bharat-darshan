@@ -5,12 +5,12 @@ import { ChevronDown, MapPin, Compass, Star } from "lucide-react";
 import { useRef } from "react";
 
 const ORBS = [
-  { size: 220, x: "8%",  y: "18%", color: "from-primary/40 to-primary/10",     delay: 0,   dur: 7 },
-  { size: 160, x: "82%", y: "12%", color: "from-secondary/35 to-secondary/5",  delay: 1.2, dur: 9 },
-  { size: 280, x: "70%", y: "62%", color: "from-amber-400/25 to-transparent",  delay: 2,   dur: 8 },
-  { size: 130, x: "18%", y: "72%", color: "from-primary/20 to-transparent",    delay: 0.6, dur: 10 },
-  { size: 90,  x: "48%", y: "8%",  color: "from-secondary/30 to-transparent",  delay: 1.8, dur: 6  },
-  { size: 200, x: "55%", y: "80%", color: "from-accent/20 to-transparent",     delay: 3,   dur: 8  },
+  { size: 220, x: "8%",  y: "18%", color: "from-teal-400/40 to-teal-400/5",       delay: 0,   dur: 7  },
+  { size: 160, x: "82%", y: "12%", color: "from-blue-500/35 to-blue-500/5",        delay: 1.2, dur: 9  },
+  { size: 280, x: "70%", y: "62%", color: "from-amber-400/20 to-transparent",      delay: 2,   dur: 8  },
+  { size: 130, x: "18%", y: "72%", color: "from-teal-300/25 to-transparent",       delay: 0.6, dur: 10 },
+  { size: 90,  x: "48%", y: "8%",  color: "from-cyan-400/30 to-transparent",       delay: 1.8, dur: 6  },
+  { size: 200, x: "55%", y: "80%", color: "from-indigo-400/20 to-transparent",     delay: 3,   dur: 8  },
 ];
 
 const QUICK_STATS = [
@@ -43,7 +43,7 @@ const Hero = () => {
 
       {/* Gradient layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-background" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/15 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 via-transparent to-blue-900/20 mix-blend-overlay" />
 
       {/* Floating orbs */}
       {ORBS.map((orb, i) => (

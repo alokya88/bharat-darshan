@@ -245,7 +245,7 @@ const Navbar = () => {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-white" align="end" forceMount>
+              <DropdownMenuContent className="w-56 bg-background border-border" align="end" forceMount>
                 <div className="flex flex-col space-y-1 p-2">
                   {currentUser?.displayName && (
                     <p className="text-sm font-medium">{currentUser.displayName}</p>
