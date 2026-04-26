@@ -35,7 +35,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "The Ramayana is an ancient Sanskrit epic that follows Prince Rama's quest to rescue his wife Sita from the demon king Ravana. Written by sage Valmiki, it contains 24,000 verses across seven books.",
     significance: "Beyond being a tale of good versus evil, the Ramayana serves as a guide to Hindu dharma, teaching values like duty, loyalty, and righteousness. Its influence extends across Southeast Asia.",
     category: "Epic",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Rama_kills_Ravana.jpg/800px-Rama_kills_Ravana.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1609766857543-a7679fddbde6?w=800&auto=format&fit=crop",
   },
   {
     title: "Mahabharata",
@@ -43,7 +43,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "The world's longest epic poem containing 100,000 verses tells the story of the Kurukshetra War between the Pandavas and Kauravas. It includes the sacred Bhagavad Gita.",
     significance: "Contains philosophical and moral teachings that remain relevant today. The Bhagavad Gita is considered one of the most important philosophical texts in Hinduism.",
     category: "Epic",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mahabharata_by_Balasaheb_Pandit_Pant_Pratinidhi.jpg/800px-Mahabharata_by_Balasaheb_Pandit_Pant_Pratinidhi.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1590577976322-3d2d6e2130d5?w=800&auto=format&fit=crop",
   },
   {
     title: "Third Battle of Panipat",
@@ -51,7 +51,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "A pivotal battle between the Maratha Empire and Ahmad Shah Durrani's coalition forces. One of the largest battles of the 18th century with over 100,000 soldiers.",
     significance: "Changed the course of Indian history by halting Maratha expansion and weakening the Mughal Empire, indirectly paving the way for British colonization.",
     category: "War",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Third_Battle_of_Panipat.jpg/800px-Third_Battle_of_Panipat.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=800&auto=format&fit=crop",
   },
   {
     title: "Mauryan Empire",
@@ -59,7 +59,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "One of ancient India's largest and most powerful dynasties, established by Chandragupta Maurya and reaching its peak under Emperor Ashoka.",
     significance: "Ashoka's pillars and rock edicts spread Buddhist teachings across Asia. The period saw significant developments in art, architecture, and governance.",
     category: "Dynasty",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Ashoka_Pillar_at_Vaishali.jpg/640px-Ashoka_Pillar_at_Vaishali.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=800&auto=format&fit=crop",
   },
   {
     title: "Gupta Empire",
@@ -67,7 +67,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "Known as the 'Golden Age' of India, the Gupta period saw remarkable progress in science, mathematics, astronomy, religion, and philosophy.",
     significance: "Produced great scholars like Aryabhata, Kalidasa, and Varahamihira. The period saw the creation of magnificent temples and artistic masterpieces.",
     category: "Dynasty",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Dashavatara_temple_Deogarh%2C_UP%2C_India.jpg/800px-Dashavatara_temple_Deogarh%2C_UP%2C_India.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop",
   },
 ];
 
@@ -76,43 +76,43 @@ const UNESCO_SITES: UnescoSite[] = [
     name: "Taj Mahal",
     location: "Agra, Uttar Pradesh",
     description: "An ivory-white marble mausoleum on the right bank of the Yamuna, commissioned in 1632 by Mughal emperor Shah Jahan in memory of his wife. A symbol of eternal love.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg",
-    mapsUrl: "https://maps.app.goo.gl/3y7GX7vGwuBPdpqz5",
+    imageUrl: "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Taj+Mahal+Agra+India",
   },
   {
     name: "Hampi",
     location: "Karnataka",
     description: "The ruins of Hampi represent the last capital of the Vijayanagar Empire. Features stunning temple complexes, royal structures, and ancient bazaars spread over 4,100 hectares.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Hampi_Virupaksha_Temple_from_Hemakuta_Hill.jpg/1280px-Hampi_Virupaksha_Temple_from_Hemakuta_Hill.jpg",
-    mapsUrl: "https://maps.app.goo.gl/zCFYEumhv7WbxnkJ7",
+    imageUrl: "https://images.unsplash.com/photo-1600697395543-5e3e55046543?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hampi+Karnataka+India",
   },
   {
     name: "Khajuraho Temples",
     location: "Madhya Pradesh",
     description: "Known for their nagara-style architectural symbolism and exquisite sculptures, these 10th–11th century temples are a testament to ancient Indian architectural genius.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Kandariya_Mahadeo_Temple%2C_Khajuraho.jpg/1280px-Kandariya_Mahadeo_Temple%2C_Khajuraho.jpg",
-    mapsUrl: "https://maps.app.goo.gl/ZREqUiC6Xexa9b6T7",
+    imageUrl: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Khajuraho+Temples+Madhya+Pradesh+India",
   },
   {
     name: "Ajanta Caves",
     location: "Maharashtra",
     description: "30 rock-cut Buddhist cave monuments dating from the 2nd century BCE to about 480 CE, with magnificent paintings and sculptures considered masterpieces of Buddhist religious art.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ajanta_cave9_2010.jpg/1280px-Ajanta_cave9_2010.jpg",
-    mapsUrl: "https://maps.app.goo.gl/ZhM7gf7KkE3y3mGw5",
+    imageUrl: "https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ajanta+Caves+Maharashtra+India",
   },
   {
     name: "Qutub Minar",
     location: "New Delhi",
     description: "A 73-metre tall minaret of victory built in 1193 by Qutb ud-Din Aibak after the defeat of Delhi's last Hindu kingdom — the world's tallest brick minaret.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Qtub_Minar_wiki.jpg/800px-Qtub_Minar_wiki.jpg",
-    mapsUrl: "https://maps.app.goo.gl/sQ5TxAaUMNF4QFNG7",
+    imageUrl: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Qutub+Minar+New+Delhi+India",
   },
   {
     name: "Red Fort Complex",
     location: "Delhi",
     description: "The main residence of the Mughal Emperors for nearly 200 years, until 1857. The fort represents the pinnacle of Mughal architecture, creativity, and power.",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Delhi_Red_Fort_5073109.jpg/1280px-Delhi_Red_Fort_5073109.jpg",
-    mapsUrl: "https://maps.app.goo.gl/N2E3rB8y1m7bCp7Y6",
+    imageUrl: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Red+Fort+Delhi+India",
   },
 ];
 
@@ -132,7 +132,7 @@ const Heritage = () => {
       {/* Hero Banner */}
       <div className="relative h-72 md:h-96 overflow-hidden">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg"
+          src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1600&auto=format&fit=crop"
           alt="India Heritage"
           className="w-full h-full object-cover"
         />
@@ -269,10 +269,10 @@ const Heritage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { title: "Ancient Architecture", text: "From the intricate temples of Khajuraho to the rock-cut caves of Ajanta and Ellora, India's architectural heritage spans millennia, showcasing advanced engineering and deep spiritual significance.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Konarka_Temple.jpg/800px-Konarka_Temple.jpg" },
-              { title: "Classical Arts", text: "India's classical traditions include dance forms like Bharatanatyam and Kathak, musical traditions like Carnatic and Hindustani, and various theatrical arts preserved through generations.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Bharatanatyam_Performance.jpg/800px-Bharatanatyam_Performance.jpg" },
-              { title: "Traditional Knowledge", text: "Ancient texts like the Vedas, Upanishads, and Arthashastra contain profound knowledge about philosophy, science, mathematics, and governance. Ayurveda and Yoga continue to benefit millions worldwide.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Yoga-Sivananda.JPG/800px-Yoga-Sivananda.JPG" },
-              { title: "Living Traditions", text: "India's heritage lives on through its festivals, rituals, customs, and social practices. These traditions adapt while maintaining their core values, creating a unique blend of ancient and modern.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Diwali_Lamps.jpg/800px-Diwali_Lamps.jpg" },
+              { title: "Ancient Architecture", text: "From the intricate temples of Khajuraho to the rock-cut caves of Ajanta and Ellora, India's architectural heritage spans millennia, showcasing advanced engineering and deep spiritual significance.", img: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?w=600&auto=format&fit=crop" },
+              { title: "Classical Arts", text: "India's classical traditions include dance forms like Bharatanatyam and Kathak, musical traditions like Carnatic and Hindustani, and various theatrical arts preserved through generations.", img: "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=600&auto=format&fit=crop" },
+              { title: "Traditional Knowledge", text: "Ancient texts like the Vedas, Upanishads, and Arthashastra contain profound knowledge about philosophy, science, mathematics, and governance. Ayurveda and Yoga continue to benefit millions worldwide.", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop" },
+              { title: "Living Traditions", text: "India's heritage lives on through its festivals, rituals, customs, and social practices. These traditions adapt while maintaining their core values, creating a unique blend of ancient and modern.", img: "https://images.unsplash.com/photo-1603228254119-e6a4d095dc59?w=600&auto=format&fit=crop" },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
