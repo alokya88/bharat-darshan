@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getArtImageUrl } from "@/data/artsImages";
+import { motion } from "framer-motion";
+import { Palette, MapPin, Star } from "lucide-react";
 
 interface ArtForm {
   name: string;
@@ -79,88 +82,139 @@ export const ARTS_DATA: ArtForm[] = [
   }
 ];
 
+const fadeUp = {
+  hidden:  { opacity: 0, y: 40 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.09, duration: 0.55, ease: "easeOut" } }),
+};
+
 const Arts = () => {
   const [imagesLoaded, setImagesLoaded] = useState<{[key: string]: boolean}>({});
-  
+
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
-    // Alternative approach for older browsers
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }, []);
-  
+
   const handleImageLoad = (artName: string) => {
-    setImagesLoaded(prev => ({
-      ...prev,
-      [artName]: true
-    }));
+    setImagesLoaded(prev => ({ ...prev, [artName]: true }));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-primary/5 py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-4">Indian Arts & Crafts</h1>
-        <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-          Explore the rich artistic heritage of India, where each state contributes unique art forms that have been passed down through generations, telling stories of our culture and traditions.
-        </p>
+    <div className="min-h-screen bg-gradient-to-b from-background to-primary/5">
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {ARTS_DATA.map((art) => (
-            <Card key={art.name} className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 bg-card/80 backdrop-blur india-card india-card-hover">
-              {/* Image Section */}
-              <div className="relative aspect-[16/9] overflow-hidden">
-                {/* Gradient overlay that appears on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                
-                {/* Image loading placeholder */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 ${imagesLoaded[art.name] ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
-                />
-                
-                {/* Decorative corner elements */}
-                <div className="absolute top-0 right-0 w-12 h-12 paisley-pattern opacity-80"></div>
-                <div className="absolute bottom-0 left-0 w-16 h-16 paisley-pattern opacity-60 rotate-180"></div>
-                
-                <img 
-                  src={getArtImageUrl(art.name)} 
-                  alt={`${art.name} art form`} 
-                  onLoad={() => handleImageLoad(art.name)}
-                  className={`object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ${imagesLoaded[art.name] ? "opacity-100" : "opacity-0"}`}
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-xl">{art.name}</CardTitle>
-                <CardDescription>Origin: {art.state}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[250px] pr-4">
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-2">History</h4>
-                      <p className="text-sm text-muted-foreground">{art.history}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Description</h4>
-                      <p className="text-sm text-muted-foreground">{art.description}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Materials Used</h4>
-                      <ul className="text-sm text-muted-foreground list-disc pl-4">
-                        {art.materials.map((material) => (
-                          <li key={material}>{material}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Cultural Significance</h4>
-                      <p className="text-sm text-muted-foreground">{art.significance}</p>
+      {/* Hero Banner */}
+      <div className="relative h-64 md:h-80 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=1600&auto=format&fit=crop"
+          alt="Indian Arts"
+          className="w-full h-full object-cover animate-kenburns"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background/95 flex flex-col items-center justify-center text-center px-4">
+          <motion.span
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="px-4 py-1 bg-secondary text-white rounded-full text-sm font-medium mb-4 inline-flex items-center gap-2"
+          >
+            <Palette className="w-3.5 h-3.5" /> Living Traditions
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg font-['Poppins']"
+          >
+            Indian Arts & Crafts
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mt-3 text-white/80 max-w-xl text-base"
+          >
+            {ARTS_DATA.length} ancient art forms preserved across generations — each a window into a unique regional soul.
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-14">
+
+        {/* Intro */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 max-w-3xl mx-auto space-y-3"
+        >
+          <span className="px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium inline-block">
+            Handcrafted Masterpieces
+          </span>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Explore the rich artistic heritage of India, where each state contributes unique art forms passed down through generations — telling stories of culture, faith, and daily life.
+          </p>
+        </motion.div>
+
+        {/* Arts Grid */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {ARTS_DATA.map((art, i) => (
+            <motion.div
+              key={art.name}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={fadeUp}
+            >
+              <motion.div whileHover={{ y: -7, boxShadow: "0 24px 48px rgba(19,136,8,0.12)" }} transition={{ type: "spring", stiffness: 280 }}>
+                <Card className="overflow-hidden group cursor-pointer bg-white dark:bg-gray-800 h-full flex flex-col">
+
+                  {/* Image */}
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                    <div className={`absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 transition-opacity duration-300 ${imagesLoaded[art.name] ? "opacity-0" : "opacity-100"}`} />
+                    <img
+                      src={getArtImageUrl(art.name)}
+                      alt={`${art.name} art form`}
+                      onLoad={() => handleImageLoad(art.name)}
+                      className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ${imagesLoaded[art.name] ? "opacity-100" : "opacity-0"}`}
+                    />
+                    <div className="absolute bottom-3 left-4 z-20 flex items-center gap-2">
+                      <Badge className="bg-secondary/90 text-white text-xs border-0">
+                        <MapPin className="w-3 h-3 mr-1" />{art.state}
+                      </Badge>
                     </div>
                   </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
+
+                  {/* Header */}
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xl text-gray-900 dark:text-white">{art.name}</CardTitle>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {art.materials.slice(0, 3).map(m => (
+                        <Badge key={m} variant="secondary" className="text-xs">{m}</Badge>
+                      ))}
+                    </div>
+                  </CardHeader>
+
+                  {/* Content */}
+                  <CardContent className="flex-1">
+                    <ScrollArea className="h-[200px] pr-3">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">History</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{art.history}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Description</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{art.description}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-secondary mb-1.5">Cultural Significance</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{art.significance}</p>
+                        </div>
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>

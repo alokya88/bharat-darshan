@@ -1,78 +1,201 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Compass, Sun } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ChevronDown, MapPin, Compass, Star } from "lucide-react";
+import { useRef } from "react";
+
+const ORBS = [
+  { size: 220, x: "8%",  y: "18%", color: "from-primary/40 to-primary/10",     delay: 0,   dur: 7 },
+  { size: 160, x: "82%", y: "12%", color: "from-secondary/35 to-secondary/5",  delay: 1.2, dur: 9 },
+  { size: 280, x: "70%", y: "62%", color: "from-amber-400/25 to-transparent",  delay: 2,   dur: 8 },
+  { size: 130, x: "18%", y: "72%", color: "from-primary/20 to-transparent",    delay: 0.6, dur: 10 },
+  { size: 90,  x: "48%", y: "8%",  color: "from-secondary/30 to-transparent",  delay: 1.8, dur: 6  },
+  { size: 200, x: "55%", y: "80%", color: "from-accent/20 to-transparent",     delay: 3,   dur: 8  },
+];
+
+const QUICK_STATS = [
+  { value: "28+",  label: "States" },
+  { value: "42",   label: "UNESCO Sites" },
+  { value: "22+",  label: "Languages" },
+  { value: "1.4B", label: "People" },
+];
 
 const Hero = () => {
   const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const bgY   = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const fadeY = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <div className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Background Slideshow */}
-      <div className="absolute inset-0">
+    <div ref={ref} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+
+      {/* Parallax background */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-kenburns"
+          className="absolute inset-0 bg-cover bg-center animate-kenburns"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`,
-            filter: "brightness(0.7)",
+            backgroundImage: `url('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2070&q=80')`,
+            filter: "brightness(0.55)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background" />
-        
-        {/* Color overlay for vibrancy with Indian flag colors */}
-        <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />
-      </div>
+      </motion.div>
 
-      {/* Decorative Elements - Indian cultural symbols */}
-      <div className="absolute top-10 left-10 hidden md:block">
-        <svg className="w-20 h-20 text-primary/70" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12,1L3,5v6c0,5.55,3.84,10.74,9,12c5.16-1.26,9-6.45,9-12V5L12,1z M19,11c0,4.52-2.98,8.69-7,9.93 c-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11l7,3.11V11z M7.82,14.77c1.95,1.97,5.14,1.9,7-0.17c0.32-0.36,0.85-0.39,1.21-0.07 c0.36,0.32,0.39,0.85,0.07,1.21c-2.45,2.71-6.52,2.82-9.08,0.25c-0.33-0.33-0.33-0.86,0-1.19C7.33,14.47,7.49,14.44,7.82,14.77z M7,10.5c0-0.83,0.67-1.5,1.5-1.5S10,9.67,10,10.5S9.33,12,8.5,12S7,11.33,7,10.5z M15.5,12c-0.83,0-1.5-0.67-1.5-1.5 s0.67-1.5,1.5-1.5s1.5,0.67,1.5,1.5S16.33,12,15.5,12z"/>
-        </svg>
-      </div>
-      
-      <div className="absolute bottom-20 right-10 hidden md:block">
-        <svg className="w-24 h-24 text-secondary/60 rotate-12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12,2C6.49,2,2,6.49,2,12s4.49,10,10,10s10-4.49,10-10S17.51,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M15,12c0,1.66-1.34,3-3,3s-3-1.34-3-3s1.34-3,3-3S15,10.34,15,12z"/>
-        </svg>
-      </div>
-      
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <div className="space-y-8">
-          {/* Decorative Indian motif */}
-          <div className="flex justify-center mb-4">
-            <svg className="w-24 h-24 text-primary/90" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12,2l-5.5,9.5l5.5,9.5l5.5-9.5L12,2z M12,17.5l-3.5-6l3.5-6l3.5,6L12,17.5z"/>
-            </svg>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold max-w-4xl mx-auto leading-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-primary/90 drop-shadow-lg font-['Poppins']">
-            Discover the Rich Cultural Heritage of India
-          </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto text-white leading-relaxed drop-shadow">
-            Embark on a journey through time-honored traditions, magnificent monuments, and vibrant celebrations across the land of diversity.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+      {/* Gradient layers */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/15 mix-blend-overlay" />
+
+      {/* Floating orbs */}
+      {ORBS.map((orb, i) => (
+        <motion.div
+          key={i}
+          className={`absolute rounded-full blur-3xl bg-gradient-radial ${orb.color}`}
+          style={{ width: orb.size, height: orb.size, left: orb.x, top: orb.y }}
+          animate={{ y: [0, -24, 0], x: [0, 12, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: orb.dur, delay: orb.delay, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+
+      {/* Main content fades out on scroll */}
+      <motion.div style={{ opacity: fadeY }} className="relative z-10 container mx-auto px-4 text-center text-white">
+
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-5 py-2 mb-6 bg-white/10 border border-white/25 rounded-full backdrop-blur-sm"
+        >
+          <Compass className="w-4 h-4 text-primary" />
+          <span className="text-sm font-medium tracking-wider uppercase text-white/90">Incredible India</span>
+          <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+        </motion.div>
+
+        {/* Headline — word by word */}
+        <h1 className="text-5xl md:text-7xl font-bold max-w-4xl mx-auto leading-tight font-['Poppins'] mb-6">
+          {[
+            { word: "Discover", gradient: false },
+            { word: "the",      gradient: false },
+          ].map(({ word }, i) => (
+            <motion.span
+              key={word + i}
+              className="inline-block mr-3 text-white"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.6, type: "spring", stiffness: 100 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+          <br className="hidden md:block" />
+          {[
+            { word: "Rich",     gradient: true },
+            { word: "Cultural", gradient: true },
+            { word: "Heritage", gradient: true },
+          ].map(({ word }, i) => (
+            <motion.span
+              key={word + i}
+              className="inline-block mr-3 bg-clip-text text-transparent bg-gradient-to-r from-primary via-amber-400 to-secondary animate-gradient-x"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: (i + 2) * 0.1, duration: 0.6, type: "spring", stiffness: 100 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+          <br className="hidden md:block" />
+          {[
+            { word: "of",    gradient: false },
+            { word: "India", gradient: false },
+          ].map(({ word }, i) => (
+            <motion.span
+              key={word + i}
+              className="inline-block mr-3 text-white"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: (i + 5) * 0.1, duration: 0.6, type: "spring", stiffness: 100 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85, duration: 0.7 }}
+          className="text-xl md:text-2xl max-w-2xl mx-auto text-white/85 leading-relaxed mb-10"
+        >
+          Embark on a journey through time-honored traditions, magnificent monuments, and vibrant celebrations across the land of diversity.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.05, duration: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
+        >
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Button
               size="lg"
-              className="india-button text-lg h-14 px-10 font-semibold tracking-wide"
+              className="india-button text-lg h-14 px-10 font-semibold tracking-wide shadow-2xl shadow-primary/40"
               onClick={() => navigate("/states")}
             >
-              <span className="mr-2">✦</span> Explore States
+              <MapPin className="mr-2 w-5 h-5" /> Explore States
             </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Button
               size="lg"
-              className="india-button-outline text-lg h-14 px-10 font-semibold tracking-wide"
-              onClick={() => navigate("/about")}
+              className="india-button-outline text-lg h-14 px-10 font-semibold tracking-wide text-white border-white/50 hover:bg-white/10"
+              onClick={() => navigate("/heritage")}
             >
-              <span className="mr-2">✦</span> Learn More
+              <span className="mr-2">✦</span> Discover Heritage
             </Button>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
 
-      {/* Bottom gradient with Indian cultural colors */}
+        {/* Quick stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3, duration: 0.6 }}
+          className="flex justify-center gap-6 md:gap-12"
+        >
+          {QUICK_STATS.map((s, i) => (
+            <motion.div
+              key={s.label}
+              className="text-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.4 + i * 0.1, duration: 0.4, type: "spring" }}
+            >
+              <div className="text-2xl md:text-3xl font-bold text-primary drop-shadow">{s.value}</div>
+              <div className="text-xs uppercase tracking-widest text-white/60 mt-1">{s.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 0.8 }}
+      >
+        <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
+      </motion.div>
+
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
-      
-      {/* Decorative bottom border with Indian pattern */}
       <div className="absolute bottom-0 left-0 right-0 h-3 rangoli-border" />
     </div>
   );

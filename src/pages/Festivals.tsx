@@ -1,8 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin } from "lucide-react";
+import { MapPin, Calendar, Star } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface Festival {
   name: string;
@@ -11,7 +12,21 @@ interface Festival {
   state: string;
   description: string;
   imageUrl?: string;
+  season?: "Spring" | "Summer" | "Monsoon" | "Winter" | "Autumn";
 }
+
+const SEASON_COLORS: Record<string, string> = {
+  Spring:  "bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300",
+  Summer:  "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300",
+  Monsoon: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300",
+  Autumn:  "bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300",
+  Winter:  "bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-900/30 dark:text-sky-300",
+};
+
+const fadeUp = {
+  hidden:  { opacity: 0, y: 40 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.5, ease: "easeOut" } }),
+};
 
 // Function to generate Google Maps link for a location
 const getGoogleMapsLink = (place: string, state: string): string => {
@@ -26,7 +41,8 @@ const FESTIVALS_DATA: Festival[] = [
     bestPlace: "Ayodhya",
     state: "Uttar Pradesh",
     description: "Diwali, known as the Festival of Lights, symbolizes the victory of light over darkness and good over evil. It is marked by decorating homes with diyas and rangoli, bursting fireworks, and exchanging sweets.",
-    imageUrl: "https://people.com/thmb/eGdSI1etRXh5lHugeJzBCsjF8uw=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/diwali-102022-6-9f38d9cf21504b40a5e3657ed46f3c96.jpg"
+    imageUrl: "https://people.com/thmb/eGdSI1etRXh5lHugeJzBCsjF8uw=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/diwali-102022-6-9f38d9cf21504b40a5e3657ed46f3c96.jpg",
+    season: "Autumn",
   },
   {
     name: "Holi",
@@ -34,7 +50,8 @@ const FESTIVALS_DATA: Festival[] = [
     bestPlace: "Vrindavan",
     state: "Uttar Pradesh",
     description: "Holi, the Festival of Colors, is a vibrant celebration of the arrival of spring and the triumph of good over evil. Participants joyfully throw colored powders and water, dance to music, and share festive treats.",
-    imageUrl: "https://cdn.getyourguide.com/img/tour/73647fffe8531ad2.jpeg/146.jpg"
+    imageUrl: "https://cdn.getyourguide.com/img/tour/73647fffe8531ad2.jpeg/146.jpg",
+    season: "Spring",
   },
   {
     name: "Dussehra",
@@ -42,7 +59,8 @@ const FESTIVALS_DATA: Festival[] = [
     bestPlace: "Mysore",
     state: "Karnataka",
     description: "Dussehra, also known as Vijayadashami, commemorates Lord Rama's victory over the demon king Ravana, symbolizing the triumph of good over evil. The festival features dramatic reenactments of the Ramayana and the burning of effigies of Ravana.",
-    imageUrl: "https://cdn1.img.sputniknews.in/img/07e7/0a/18/5055084_0:160:3072:1888_1920x0_80_0_0_27b1cfda9cfcfa75819c932caaaf5862.jpg"
+    imageUrl: "https://cdn1.img.sputniknews.in/img/07e7/0a/18/5055084_0:160:3072:1888_1920x0_80_0_0_27b1cfda9cfcfa75819c932caaaf5862.jpg",
+    season: "Autumn",
   },
   {
     name: "Ganesh Chaturthi",
@@ -262,81 +280,157 @@ const FESTIVALS_DATA: Festival[] = [
   }
 ];
 
+const SEASONS = ["All", "Spring", "Summer", "Monsoon", "Autumn", "Winter"] as const;
+
 const Festivals = () => {
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
-    // Alternative approach for older browsers
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }, []);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-primary/5 py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-8">Indian Festivals</h1>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          India is known for its rich cultural heritage and diverse festivals. Here are some of the most significant festivals and the best places to experience them.
-        </p>
+  const filtered = activeFilter === "All"
+    ? FESTIVALS_DATA
+    : FESTIVALS_DATA.filter(f => f.season === activeFilter);
 
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-background to-primary/5">
+
+      {/* Hero Banner */}
+      <div className="relative h-64 md:h-80 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1603228254119-e6a4d095dc59?w=1600&auto=format&fit=crop"
+          alt="Indian Festivals"
+          className="w-full h-full object-cover animate-kenburns"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background/95 flex flex-col items-center justify-center text-center px-4">
+          <motion.span
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="px-4 py-1 bg-primary text-white rounded-full text-sm font-medium mb-4 inline-flex items-center gap-2"
+          >
+            <Star className="w-3 h-3 fill-white" /> Celebrations of India
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg font-['Poppins']"
+          >
+            Indian Festivals
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mt-3 text-white/80 max-w-xl text-base"
+          >
+            {FESTIVALS_DATA.length}+ festivals from every corner of India — every season brings a new reason to celebrate.
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-12 space-y-10">
+
+        {/* Season Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap gap-2 justify-center"
+        >
+          {SEASONS.map(season => (
+            <motion.button
+              key={season}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setActiveFilter(season)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
+                activeFilter === season
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/30"
+                  : "bg-white dark:bg-gray-800 text-muted-foreground border-border hover:border-primary/40"
+              }`}
+            >
+              {season === "All" ? "🎉 All" : season === "Spring" ? "🌸 Spring" : season === "Summer" ? "☀️ Summer" : season === "Monsoon" ? "🌧️ Monsoon" : season === "Autumn" ? "🍂 Autumn" : "❄️ Winter"}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Festival Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {FESTIVALS_DATA.map((festival) => (
-            <Card key={festival.name} className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 bg-card/80 backdrop-blur india-card india-card-hover">
-              {/* Image Section */}
-              {festival.imageUrl && (
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  {/* Gradient overlay that appears on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                  
-                  {/* Decorative corner elements */}
-                  <div className="absolute top-0 right-0 w-12 h-12 paisley-pattern opacity-80"></div>
-                  <div className="absolute bottom-0 left-0 w-16 h-16 paisley-pattern opacity-60 rotate-180"></div>
-                  
-                  <img 
-                    src={festival.imageUrl} 
-                    alt={`${festival.name} festival`} 
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              )}
-              <CardHeader>
-                <CardTitle>{festival.name}</CardTitle>
-                <CardDescription>Celebrated in {festival.time}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="font-medium">Best Place</TableCell>
-                      <TableCell>{festival.bestPlace}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-medium">State</TableCell>
-                      <TableCell>{festival.state}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-medium" colSpan={2}>
-                        {festival.description}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardContent>
-              <CardFooter className="flex justify-end">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => window.open(getGoogleMapsLink(festival.bestPlace, festival.state), '_blank')}
-                  className="flex items-center gap-2 india-button hover:shadow-md"
-                >
-                  <MapPin className="h-4 w-4" />
-                  View Location
-                </Button>
-              </CardFooter>
-            </Card>
+          {filtered.map((festival, i) => (
+            <motion.div
+              key={festival.name}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={fadeUp}
+            >
+              <motion.div whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(255,119,34,0.15)" }} transition={{ type: "spring", stiffness: 300 }}>
+                <Card className="overflow-hidden group cursor-pointer bg-white dark:bg-gray-800 h-full flex flex-col">
+                  {festival.imageUrl && (
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                      <img
+                        src={festival.imageUrl}
+                        alt={`${festival.name} festival`}
+                        className="object-cover w-full h-full group-hover:scale-108 transition-transform duration-700"
+                        style={{ transition: "transform 0.7s ease" }}
+                        onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.08)")}
+                        onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+                      />
+                      {festival.season && (
+                        <Badge
+                          className={`absolute top-3 left-3 z-20 text-xs border ${SEASON_COLORS[festival.season]}`}
+                          variant="outline"
+                        >
+                          {festival.season}
+                        </Badge>
+                      )}
+                      <div className="absolute bottom-3 left-3 z-20">
+                        <h3 className="text-white text-xl font-bold drop-shadow">{festival.name}</h3>
+                      </div>
+                    </div>
+                  )}
+
+                  <CardContent className="flex-1 flex flex-col gap-3 pt-4">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Calendar className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span className="line-clamp-1">{festival.time}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <MapPin className="w-3.5 h-3.5 text-secondary shrink-0" />
+                      <span>{festival.bestPlace}, {festival.state}</span>
+                    </div>
+
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+                      {festival.description}
+                    </p>
+                  </CardContent>
+
+                  <CardFooter className="pt-0 pb-4 px-6">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full gap-2 hover:bg-primary hover:text-white hover:border-primary transition-colors duration-200"
+                      onClick={() => window.open(getGoogleMapsLink(festival.bestPlace, festival.state), "_blank")}
+                    >
+                      <MapPin className="h-4 w-4" /> View Location
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-20 text-muted-foreground">
+            No festivals found for this season filter.
+          </div>
+        )}
       </div>
     </div>
   );

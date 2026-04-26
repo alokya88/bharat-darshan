@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ExternalLink, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 interface HistoricalEvent {
   title: string;
@@ -121,7 +122,24 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.5 } }),
 };
 
+const TIMELINE = [
+  { year: "3000 BCE", event: "Indus Valley Civilisation flourishes in Harappa and Mohenjo-daro" },
+  { year: "1500 BCE", event: "Vedic period begins — the Rigveda, world's oldest text, is composed" },
+  { year: "563 BCE",  event: "Birth of Gautama Buddha in Lumbini (modern Nepal)" },
+  { year: "322 BCE",  event: "Chandragupta Maurya founds the Mauryan Empire" },
+  { year: "320 CE",   event: "Gupta Empire — India's Golden Age of science and arts" },
+  { year: "1206 CE",  event: "Delhi Sultanate established, beginning 300 years of Islamic rule" },
+  { year: "1526 CE",  event: "Babur founds the Mughal Empire after the First Battle of Panipat" },
+  { year: "1631 CE",  event: "Shah Jahan commissions the Taj Mahal in memory of Mumtaz Mahal" },
+  { year: "1858 CE",  event: "British Crown assumes direct control of India after the 1857 uprising" },
+  { year: "1947 CE",  event: "India gains independence on August 15 — the world's largest democracy is born" },
+];
+
 const Heritage = () => {
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: bannerRef, offset: ["start start", "end start"] });
+  const bannerY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -129,12 +147,13 @@ const Heritage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-primary/5">
 
-      {/* Hero Banner */}
-      <div className="relative h-72 md:h-96 overflow-hidden">
-        <img
+      {/* Hero Banner with parallax */}
+      <div ref={bannerRef} className="relative h-72 md:h-96 overflow-hidden">
+        <motion.img
+          style={{ y: bannerY }}
           src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1600&auto=format&fit=crop"
           alt="India Heritage"
-          className="w-full h-full object-cover"
+          className="w-full h-[110%] object-cover absolute top-0"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background/90 flex flex-col items-center justify-center text-center px-4">
           <motion.span
@@ -258,6 +277,65 @@ const Heritage = () => {
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </section>
+
+        {/* Inspirational Quote */}
+        <motion.section
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-2xl overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80" />
+          <div className="relative z-10 py-14 px-8 text-center text-white">
+            <Quote className="w-10 h-10 mx-auto mb-4 opacity-60" />
+            <p className="text-2xl md:text-3xl font-light italic max-w-3xl mx-auto leading-relaxed">
+              "India is not just a country — it is a living philosophy, a spiritual force that has shaped the world since the dawn of civilisation."
+            </p>
+            <p className="mt-6 text-white/70 text-sm uppercase tracking-widest">— Cultural Heritage of India</p>
+          </div>
+        </motion.section>
+
+        {/* India Through Time — Timeline */}
+        <section className="space-y-10">
+          <div className="text-center space-y-3">
+            <span className="px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">India Through Time</span>
+            <h2 className="text-3xl md:text-4xl font-bold">A 5,000-Year Journey</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Key milestones that shaped the world's oldest continuous civilisation.
+            </p>
+          </div>
+
+          <div className="relative max-w-3xl mx-auto">
+            {/* Vertical line */}
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent -translate-x-1/2" />
+
+            <div className="space-y-8">
+              {TIMELINE.map((item, i) => (
+                <motion.div
+                  key={item.year}
+                  custom={i}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ delay: i * 0.06, duration: 0.5, ease: "easeOut" }}
+                  className={`relative flex items-start gap-6 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} pl-14 md:pl-0`}
+                >
+                  {/* Dot */}
+                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background shadow-md mt-1.5" />
+
+                  {/* Card */}
+                  <div className={`md:w-[45%] ${i % 2 === 0 ? "md:mr-auto md:text-right md:pr-8" : "md:ml-auto md:text-left md:pl-8"}`}>
+                    <Card className="p-4 bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow">
+                      <Badge className="mb-2 bg-primary/10 text-primary border-primary/20" variant="outline">{item.year}</Badge>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{item.event}</p>
+                    </Card>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
