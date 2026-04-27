@@ -2264,15 +2264,13 @@ const States = () => {
           {filteredStates.map((state) => (
             <Card
               key={state.name}
-              className="hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden"
+              className="hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden bg-white dark:bg-gray-800"
               onClick={() => setSelectedState(state)}
             >
               <div className="relative h-48 overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    backgroundImage: `url('${getStateImage(state)}')`,
-                  }}
+                  style={{ backgroundImage: `url('${getStateImage(state)}')` }}
                 >
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
                 </div>
@@ -2287,17 +2285,17 @@ const States = () => {
                 </div>
               </div>
               <CardContent className="p-6">
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
                       Tourist Places: {state.touristPlaces.length}
                     </span>
-                    <span className="text-primary font-medium">
+                    <span className="text-primary dark:text-teal-400 font-semibold text-sm group-hover:underline">
                       View Details →
                     </span>
                   </div>
-                  <div className="text-sm text-muted-foreground line-clamp-2">
-                    Featured: {state.touristPlaces.map(place => place.name).join(', ')}
+                  <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                    Featured: {state.touristPlaces.map(p => p.name).join(', ')}
                   </div>
                 </div>
               </CardContent>

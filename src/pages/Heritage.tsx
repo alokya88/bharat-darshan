@@ -36,7 +36,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "The Ramayana is an ancient Sanskrit epic that follows Prince Rama's quest to rescue his wife Sita from the demon king Ravana. Written by sage Valmiki, it contains 24,000 verses across seven books.",
     significance: "Beyond being a tale of good versus evil, the Ramayana serves as a guide to Hindu dharma, teaching values like duty, loyalty, and righteousness. Its influence extends across Southeast Asia.",
     category: "Epic",
-    imageUrl: "https://images.unsplash.com/photo-1609766857543-a7679fddbde6?w=800&auto=format&fit=crop",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Ramayana_Lakshmana_cuts_Surpanakha%27s_nose.jpg/800px-Ramayana_Lakshmana_cuts_Surpanakha%27s_nose.jpg",
   },
   {
     title: "Mahabharata",
@@ -44,7 +44,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "The world's longest epic poem containing 100,000 verses tells the story of the Kurukshetra War between the Pandavas and Kauravas. It includes the sacred Bhagavad Gita.",
     significance: "Contains philosophical and moral teachings that remain relevant today. The Bhagavad Gita is considered one of the most important philosophical texts in Hinduism.",
     category: "Epic",
-    imageUrl: "https://images.unsplash.com/photo-1590577976322-3d2d6e2130d5?w=800&auto=format&fit=crop",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Krishna_and_Arjuna_at_Kurukshetra%2C_18th-19th_century%2C_opaque_watercolor_on_paper%2C_Honolulu_Academy_of_Arts.jpg/800px-Krishna_and_Arjuna_at_Kurukshetra%2C_18th-19th_century%2C_opaque_watercolor_on_paper%2C_Honolulu_Academy_of_Arts.jpg",
   },
   {
     title: "Third Battle of Panipat",
@@ -52,7 +52,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "A pivotal battle between the Maratha Empire and Ahmad Shah Durrani's coalition forces. One of the largest battles of the 18th century with over 100,000 soldiers.",
     significance: "Changed the course of Indian history by halting Maratha expansion and weakening the Mughal Empire, indirectly paving the way for British colonization.",
     category: "War",
-    imageUrl: "https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=800&auto=format&fit=crop",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Battle_of_Panipat_1761.jpg/800px-Battle_of_Panipat_1761.jpg",
   },
   {
     title: "Mauryan Empire",
@@ -60,7 +60,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "One of ancient India's largest and most powerful dynasties, established by Chandragupta Maurya and reaching its peak under Emperor Ashoka.",
     significance: "Ashoka's pillars and rock edicts spread Buddhist teachings across Asia. The period saw significant developments in art, architecture, and governance.",
     category: "Dynasty",
-    imageUrl: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=800&auto=format&fit=crop",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Lion_Capital_of_Ashoka_in_Sarnath_Museum_in_Sarnath.jpg/600px-Lion_Capital_of_Ashoka_in_Sarnath_Museum_in_Sarnath.jpg",
   },
   {
     title: "Gupta Empire",
@@ -68,7 +68,7 @@ const HISTORICAL_EVENTS: HistoricalEvent[] = [
     description: "Known as the 'Golden Age' of India, the Gupta period saw remarkable progress in science, mathematics, astronomy, religion, and philosophy.",
     significance: "Produced great scholars like Aryabhata, Kalidasa, and Varahamihira. The period saw the creation of magnificent temples and artistic masterpieces.",
     category: "Dynasty",
-    imageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?w=800&auto=format&fit=crop",
   },
 ];
 
@@ -218,7 +218,7 @@ const Heritage = () => {
                     <p className="text-sm text-muted-foreground">{site.location}</p>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between gap-4">
-                    <p className="text-sm text-muted-foreground">{site.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{site.description}</p>
                     <Button
                       variant="outline"
                       size="sm"
@@ -266,12 +266,12 @@ const Heritage = () => {
                       <Badge className={CATEGORY_COLORS[event.category]}>{event.category}</Badge>
                     </div>
                   </div>
-                  <CardContent className="pt-4 space-y-3">
-                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{event.period}</p>
-                    <p className="text-sm text-muted-foreground">{event.description}</p>
-                    <div className="border-t pt-3">
-                      <p className="text-xs font-semibold text-primary mb-1">Historical Significance</p>
-                      <p className="text-sm text-muted-foreground">{event.significance}</p>
+                  <CardContent className="pt-4 space-y-3 bg-white dark:bg-gray-800">
+                    <p className="text-xs text-primary font-semibold uppercase tracking-wider">{event.period}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{event.description}</p>
+                    <div className="border-t border-gray-200 dark:border-gray-600 pt-3">
+                      <p className="text-xs font-bold text-primary mb-1 uppercase tracking-wide">Historical Significance</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{event.significance}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -369,8 +369,8 @@ const Heritage = () => {
                     />
                   </div>
                   <CardContent className="md:w-3/5 p-6 flex flex-col justify-center space-y-2">
-                    <h3 className="text-xl font-semibold">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.text}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{item.text}</p>
                   </CardContent>
                 </Card>
               </motion.div>
